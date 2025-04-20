@@ -5,7 +5,7 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   const handleBackHome = () => {
-    navigate(ROUTERS.DEFAULT);
+    navigate(ROUTERS.HOME);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
