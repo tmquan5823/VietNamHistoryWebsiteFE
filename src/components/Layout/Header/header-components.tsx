@@ -10,7 +10,7 @@ export const Brand = () => {
   return (
     <Link to={ROUTERS.HOME} className="flex items-center gap-1">
       <img
-        src="/src/assets/images/vietnam.png"
+        src="/images/vietnam.png"
         alt="Vietnamese Flag"
         className="w-10 h-8 object-cover"
       />
