@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <img
-                src="/images/vietnam.png"
+                src={import.meta.env.BASE_URL + "images/vietnam.png"}
                 alt="Việt Sử"
                 className="w-8 h-8"
               />

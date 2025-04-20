@@ -7,33 +7,33 @@ const timelineData = [
     period: "2879 TCN - 258 TCN",
     description:
       "Thời kỳ các vua Hùng dựng nước Văn Lang, đặt nền móng cho dân tộc Việt Nam",
-    image: "/images/vietnam-history.jpg",
+    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
   },
   {
     title: "Thời Bắc thuộc",
     period: "111 TCN - 938",
     description:
       "Thời kỳ đất nước bị các triều đại phong kiến phương Bắc đô hộ",
-    image: "/images/vietnam-history.jpg",
+    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
   },
   {
     title: "Thời phong kiến độc lập",
     period: "938 - 1858",
     description:
       "Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước ",
-    image: "/images/vietnam-history.jpg",
+    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
   },
   {
     title: "Thời cận hiện đại",
     period: "1858 - nay",
     description: "Thời kỳ đấu tranh giành độc lập và xây dựng đất nước",
-    image: "/images/vietnam-history.jpg",
+    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
   },
   {
     title: "Thời cận hiện đại 123",
     period: "1858 - nay",
     description: "Thời kỳ đấu tranh giành độc lập và xây dựng đất nước",
-    image: "/images/vietnam-history.jpg",
+    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
   },
 ];
 

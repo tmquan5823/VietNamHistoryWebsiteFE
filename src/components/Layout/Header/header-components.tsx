@@ -10,7 +10,7 @@ export const Brand = () => {
   return (
     <Link to={ROUTERS.HOME} className="flex items-center gap-1">
       <img
-        src="/images/vietnam.png"
+        src={import.meta.env.VITE_BASE_URL + "images/vietnam.png"}
         alt="Vietnamese Flag"
         className="w-10 h-8 object-cover"
       />
@@ -42,9 +42,9 @@ export const NavigationItems = () => {
         Trang chủ
       </button>
       <button
-        onClick={() => navigate(ROUTERS.USER_ASSETS)}
+        onClick={() => navigate(ROUTERS.IMAGE_RESTORATION)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.USER_ASSETS)
+          isActiveRoute(ROUTERS.IMAGE_RESTORATION)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}

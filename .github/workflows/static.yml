@@ -35,12 +35,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Sử dụng phiên bản Node.js phù hợp với dự án của bạn
+          node-version: "20" # Sử dụng phiên bản Node.js phù hợp với dự án của bạn
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
+        env:
+          VITE_BASE_URL: /VietNamHistoryWebsiteFE/
         run: npm run build
 
       - name: Setup Pages
@@ -50,7 +52,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Chỉ upload thư mục dist (thư mục chứa các tệp tĩnh sau khi build)
-          path: 'dist'
+          path: "dist"
 
       - name: Deploy to GitHub Pages
         id: deployment

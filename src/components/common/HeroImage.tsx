@@ -31,7 +31,7 @@ const HeroImage = ({
       }}
     >
       <img
-        src="/images/hero.webp"
+        src={import.meta.env.BASE_URL + "images/hero.webp"}
         alt="hero"
         className="w-full h-full object-contain"
       />
@@ -46,7 +46,7 @@ const HeroImage = ({
         }}
       >
         <img
-          src="/images/vn-flag-full.gif"
+          src={import.meta.env.BASE_URL + "images/vn-flag-full.gif"}
           alt="hero"
           className="w-full h-auto object-contain"
         />

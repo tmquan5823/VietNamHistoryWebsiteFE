@@ -9,10 +9,6 @@ export const enum ROUTERS {
   IMAGE_RESTORATION = "/image-restoration",
   QUIZ = "/quiz",
   FORUM = "/forum",
-  USER_PROFILE = "/profile",
-  USER_SETTINGS = "/settings",
-  USER_ASSETS = "/assets",
-
 
   BLANK_PAGE = "admin/blank_page",
   UNAUTHORIZED = "admin/403_unauthorized",
