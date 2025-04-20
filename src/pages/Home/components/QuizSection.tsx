@@ -22,7 +22,7 @@ const QuizSection: React.FC = () => {
           </div>
           <div className="mb-4">
             <img
-              src="/src/assets/images/quiz-default.jpg"
+              src="/images/quiz-default.jpg"
               alt="Quiz"
               className="w-full h-48 sm:h-64 object-cover rounded-lg"
             />
@@ -77,7 +77,7 @@ const QuizSection: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-200 rounded-full flex-shrink-0">
                       <img
-                        src="/src/assets/images/default-avatar.png"
+                        src="/images/default-avatar.png"
                         alt="Avatar"
                         className="w-full h-full object-cover rounded-full"
                       />

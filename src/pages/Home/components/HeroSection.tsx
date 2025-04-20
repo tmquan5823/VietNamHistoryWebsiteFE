@@ -6,7 +6,7 @@ const HeroSection: React.FC = () => {
     <div className="relative h-[500px] w-full bg-[#FDDAA7]">
       {/* Background image on the right */}
       <div className="absolute right-0 top-0 w-full md:w-1/2 h-full">
-        <div className="absolute inset-0 bg-[url('/src/assets/images/behind-hero.webp')] bg-cover bg-right [transform:rotateY(180deg)] opacity-50 md:opacity-100"></div>
+        <div className="absolute inset-0 bg-[url('/images/behind-hero.webp')] bg-cover bg-right [transform:rotateY(180deg)] opacity-50 md:opacity-100"></div>
       </div>
 
       <div className="max-w-[1280px] mx-auto h-full flex items-center justify-between px-4 relative">

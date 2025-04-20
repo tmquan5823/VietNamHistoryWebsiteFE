@@ -16,7 +16,7 @@ const forumData = [
       { name: "Thời Trần", color: "bg-red-50 text-red-600" },
       { name: "Học thuật", color: "bg-orange-50 text-orange-600" },
     ],
-    avatar: "/src/assets/images/default-avatar.png",
+    avatar: "/images/default-avatar.png",
   },
   {
     title:
@@ -31,7 +31,7 @@ const forumData = [
       { name: "Thời Trần", color: "bg-red-50 text-red-600" },
       { name: "Học thuật", color: "bg-orange-50 text-orange-600" },
     ],
-    avatar: "/src/assets/images/default-avatar.png",
+    avatar: "/images/default-avatar.png",
   },
   {
     title:
@@ -46,7 +46,7 @@ const forumData = [
       { name: "Thời Trần", color: "bg-red-50 text-red-600" },
       { name: "Học thuật", color: "bg-orange-50 text-orange-600" },
     ],
-    avatar: "/src/assets/images/default-avatar.png",
+    avatar: "/images/default-avatar.png",
   },
 ];
 

@@ -10,45 +10,49 @@ interface HeroImageProps {
 }
 
 const HeroImage = ({
-  containerWidth = '400px',
-  containerHeight = '400px',
-  flagWidth = '60%',
+  containerWidth = "400px",
+  containerHeight = "400px",
+  flagWidth = "60%",
   flagPosition = {
-    top: '-8%',
-    right: '25%'
+    top: "-8%",
+    right: "25%",
   },
-  hasBorder = true
+  hasBorder = true,
 }: HeroImageProps) => {
   return (
-    <div 
+    <div
       className={`
-        relative ${hasBorder ? 'border-4 border-[#FDDAA7]' : ''} 
+        relative ${hasBorder ? "border-4 border-[#FDDAA7]" : ""} 
         rounded-2xl flex items-center justify-center
       `}
       style={{
         width: containerWidth,
-        height: containerHeight
+        height: containerHeight,
       }}
     >
-      <img 
-        src="/src/assets/images/hero.webp" 
-        alt="hero" 
+      <img
+        src="/images/hero.webp"
+        alt="hero"
         className="w-full h-full object-contain"
       />
-      <div 
-        className="absolute" 
-        style={{ 
+      <div
+        className="absolute"
+        style={{
           width: flagWidth,
-          maxWidth: '240px',
+          maxWidth: "240px",
           top: flagPosition.top,
           right: flagPosition.right,
-          transform: 'rotate(-23deg)'
+          transform: "rotate(-23deg)",
         }}
       >
-        <img src="/src/assets/images/vn-flag-full.gif" alt="hero" className="w-full h-auto object-contain" />
+        <img
+          src="/images/vn-flag-full.gif"
+          alt="hero"
+          className="w-full h-auto object-contain"
+        />
       </div>
     </div>
   );
 };
 
-export default HeroImage; 
+export default HeroImage;
