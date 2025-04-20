@@ -1,4 +1,3 @@
-import { authApi } from '@/api/authApi';
 import { toast } from '@/components/ui/sonner';
 import React, { useState } from 'react';
 import LoginForm from './login-components/LoginForm';
@@ -14,15 +13,11 @@ const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const handleLogin = async (data: LoginFormData) => {
-    try {
-      await authApi.login(data);
-      toast.success('Đăng nhập thành công');
-    } catch (error) {
-      toast.error('Đăng nhập thất bại');
-    }
+    console.log(data)
   };
 
   const handleRegister = async (data: RegisterFormData) => {
+    console.log(data)
     try {
       // Handle register API call here
       toast.success('Đăng ký thành công');
