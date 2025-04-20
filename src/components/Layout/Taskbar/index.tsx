@@ -63,7 +63,7 @@ const Taskbar: React.FC = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate(ROUTERS.USER_ASSETS);
+                    navigate(ROUTERS.IMAGE_RESTORATION);
                     setIsOpen(false);
                   }}
                   className="w-full p-3 text-center text-[#5D4037] hover:bg-[#5D4037]/10 rounded-lg font-medium"
