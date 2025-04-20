@@ -3,7 +3,7 @@ export const enum ROUTERS {
   // INITIAL_PWD = "initial_password",
   // INITIAL_PWD_SUCCESS = "initial_password_success",
 
-  DEFAULT = "/home",
+  DEFAULT = "/",
   LOGIN = "/login",
   HOME = "/home",
   IMAGE_RESTORATION = "/image-restoration",

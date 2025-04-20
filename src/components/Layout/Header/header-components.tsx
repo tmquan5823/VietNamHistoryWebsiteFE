@@ -34,7 +34,7 @@ export const NavigationItems = () => {
       <button
         onClick={() => navigate(ROUTERS.HOME)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.HOME)
+          isActiveRoute(ROUTERS.HOME) || isActiveRoute(ROUTERS.DEFAULT)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}
