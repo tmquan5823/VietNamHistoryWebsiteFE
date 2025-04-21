@@ -4,31 +4,32 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  FormLabel
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { loginSchema } from '@/utils/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { loginSchema } from "@/utils/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 type LoginFormData = z.infer<ReturnType<typeof loginSchema>>;
 
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => Promise<void>;
   onToggleForm: () => void;
+  onForgotPassword: () => void;
 }
 
-const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
-  const { t } = useTranslation();
-
+const LoginForm = ({
+  onSubmit,
+  onForgotPassword,
+}: LoginFormProps) => {
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema(t)),
+    resolver: zodResolver(loginSchema()),
     defaultValues: {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: "",
+    },
   });
 
   return (
@@ -39,9 +40,11 @@ const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">Email</FormLabel>
+              <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">
+                Email
+              </FormLabel>
               <FormControl>
-                <Input 
+                <Input
                   placeholder="Nhập email"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
                   {...field}
@@ -57,9 +60,11 @@ const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">Mật khẩu</FormLabel>
+              <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">
+                Mật khẩu
+              </FormLabel>
               <FormControl>
-                <Input 
+                <Input
                   type="password"
                   placeholder="Nhập mật khẩu"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
@@ -80,20 +85,17 @@ const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
         </button>
 
         <div className="text-center mt-4">
-          <p className="text-gray-600 text-sm">
-            Chưa có tài khoản?{' '}
-            <button
-              type="button"
-              onClick={onToggleForm}
-              className="text-[#D0342C] hover:underline"
-            >
-              Đăng ký ngay
-            </button>
-          </p>
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            className="text-[#D0342C] hover:underline"
+          >
+            Quên mật khẩu?
+          </button>
         </div>
       </form>
     </Form>
   );
 };
 
-export default LoginForm; 
+export default LoginForm;
