@@ -1,6 +1,6 @@
 import React from "react";
 import SectionContainer from "../../../components/common/SectionContainer";
-import Button from "../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const forumData = [
   {

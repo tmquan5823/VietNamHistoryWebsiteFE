@@ -11,15 +11,22 @@ import { registerSchema } from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 type RegisterFormData = z.infer<ReturnType<typeof registerSchema>>;
 
 interface RegisterFormProps {
-  onToggleForm: () => void;
   onSubmit: (data: RegisterFormData) => Promise<void>;
+  onToggleForm: () => void;
+  isLoading?: boolean;
 }
 
-const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
+const RegisterForm = ({
+  onSubmit,
+  onToggleForm,
+  isLoading,
+}: RegisterFormProps) => {
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema()),
     defaultValues: {
@@ -46,6 +53,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                   placeholder="Nhập họ và tên"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -66,6 +74,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                   placeholder="Nhập email"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -87,6 +96,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                   placeholder="Nhập mật khẩu"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -108,6 +118,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                   placeholder="Nhập lại mật khẩu"
                   className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -115,15 +126,32 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           )}
         />
 
-        <button
+        <Button
           type="submit"
-          className="w-full py-3 bg-[#5D4037] text-white rounded-md hover:opacity-90 transition-opacity"
-          disabled={form.formState.isSubmitting}
+          className="w-full bg-[#5D4037] hover:bg-[#5D4037]/90 h-12 text-base"
+          disabled={isLoading}
         >
-          Đăng ký
-        </button>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Đang đăng ký...
+            </>
+          ) : (
+            "Đăng ký"
+          )}
+        </Button>
 
-        <div className="text-center mt-4"></div>
+        <div className="text-center mt-4">
+          <span className="text-gray-600">Đã có tài khoản? </span>
+          <button
+            type="button"
+            onClick={onToggleForm}
+            className="text-[#5D4037] hover:underline font-medium"
+            disabled={isLoading}
+          >
+            Đăng nhập ngay
+          </button>
+        </div>
       </form>
     </Form>
   );
