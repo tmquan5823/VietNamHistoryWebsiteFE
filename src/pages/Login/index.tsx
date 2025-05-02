@@ -5,19 +5,64 @@ import RegisterForm from "./login-components/RegisterForm";
 import LeftContent from "./login-components/LeftContent";
 import { z } from "zod";
 import { loginSchema, registerSchema } from "@/utils/schema";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "@/api/authApi";
+import {
+  LoginResponse,
+  User,
+  RegisterData,
+} from "@/dataHelper/auth.dataHelper";
+import { ResponseData } from "@/utils/type";
+import { useUserStore } from "@/store/useUserStore";
+import OTPVerificationModal from "./login-components/OTPVerificationModal";
 
 type LoginFormData = z.infer<ReturnType<typeof loginSchema>>;
 type RegisterFormData = z.infer<ReturnType<typeof registerSchema>>;
 
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
+
+  const { mutate: login, isPending: isLoginPending } = useMutation({
+    mutationFn: (data: LoginFormData) => authApi.login(data),
+    onSuccess: (response: ResponseData<LoginResponse>) => {
+      console.log(response);
+      const { accessToken, user } = response.data;
+      useUserStore.getState().login(accessToken, user);
+      toast.success("Đăng nhập thành công");
+    },
+    onError: (error: any) => {
+      toast.error(error.response.data.message);
+    },
+  });
+
+  const { mutate: register, isPending: isRegisterPending } = useMutation({
+    mutationFn: (data: RegisterFormData) => {
+      const registerData: RegisterData = {
+        email: data.email,
+        password: data.password,
+        fullname: data.fullName,
+      };
+      return authApi.register(registerData);
+    },
+    onSuccess: (response: ResponseData<User>, variables) => {
+      console.log(response);
+      toast.success("Đăng ký thành công");
+      setRegisteredEmail(variables.email);
+      setShowOtpModal(true);
+    },
+    onError: (error: any) => {
+      toast.error(error.response.data.message);
+    },
+  });
 
   const handleLogin = async (data: LoginFormData) => {
-    console.log(data);
+    login(data);
   };
 
   const handleRegister = async (data: RegisterFormData) => {
-    console.log(data);
+    register(data);
   };
 
   const handleForgotPassword = () => {
@@ -73,15 +118,26 @@ const Login: React.FC = () => {
               onSubmit={handleLogin}
               onToggleForm={() => setIsLogin(false)}
               onForgotPassword={handleForgotPassword}
+              isLoading={isLoginPending}
             />
           ) : (
             <RegisterForm
               onSubmit={handleRegister}
               onToggleForm={() => setIsLogin(true)}
+              isLoading={isRegisterPending}
             />
           )}
         </div>
       </div>
+
+      <OTPVerificationModal
+        isOpen={showOtpModal}
+        onClose={() => {
+          setShowOtpModal(false);
+          setIsLogin(true);
+        }}
+        email={registeredEmail}
+      />
     </div>
   );
 };

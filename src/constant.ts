@@ -15,14 +15,7 @@ export const enum ROUTERS {
 }
 
 export const enum STORAGE_VAR {
-  User = "iic-user",
-  AccessToken = "iic-user-access-token",
-  AdminMenuActive = "iic-admin-menu-actived",
-  NewGroupID = "iic-group-id",
-  DetailVisitID = "iic-visit-id",
-  RoleId = "iic-role-id",
-  RoleName = "iic-role-name",
-  RoleScreen = "iic-role-screen",
+  ACCESS_TOKEN = "access_token",
 }
 
 export const enum ROLE {
