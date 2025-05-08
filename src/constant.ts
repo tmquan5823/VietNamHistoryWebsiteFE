@@ -7,8 +7,10 @@ export const enum ROUTERS {
   LOGIN = "/login",
   HOME = "/home",
   IMAGE_RESTORATION = "/image-restoration",
+  HISTORY_DOCUMENT = "/history-document",
   QUIZ = "/quiz",
   FORUM = "/forum",
+  HISTORY_DOCUMENT_DETAIL = "/history-document/:id",
 
   BLANK_PAGE = "admin/blank_page",
   UNAUTHORIZED = "admin/403_unauthorized",

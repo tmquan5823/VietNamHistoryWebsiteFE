@@ -7,6 +7,8 @@ import NotFound from "./pages/NotFound";
 import ImageRestoration from "./pages/ImageRestoration";
 import { useUserStore } from "./store/useUserStore";
 import { Suspense } from "react";
+import HistoryDocument from "./pages/HistoryDocument";
+import HistoryDocumentDetail from "./pages/HistoryDocumentDetail";
 
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
@@ -22,7 +24,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 const AuthRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useUserStore();
   return isAuthenticated ? (
-    <Navigate to={ROUTERS.IMAGE_RESTORATION} />
+    <Navigate to={ROUTERS.HOME} />
   ) : (
     <>{children}</>
   );
@@ -35,6 +37,14 @@ export default function Router() {
         <Route element={<Layout />}>
           <Route path={ROUTERS.DEFAULT} element={<Home />} />
           <Route path={ROUTERS.HOME} element={<Home />} />
+          <Route
+            path={ROUTERS.HISTORY_DOCUMENT}
+            element={<HistoryDocument />}
+          />
+          <Route
+            path={ROUTERS.HISTORY_DOCUMENT_DETAIL}
+            element={<HistoryDocumentDetail />}
+          />
           <Route
             path={ROUTERS.LOGIN}
             element={
