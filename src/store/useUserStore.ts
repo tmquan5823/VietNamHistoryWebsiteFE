@@ -1,7 +1,7 @@
 import { removeAccessToken, setAccessToken } from "../utils/storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { User } from "../dataHelper/auth.dataHelper";
+import { User } from "@/dataHelper/auth.dataHelper";
 interface UserStore {
   isAuthenticated: boolean;
   user: User | undefined;

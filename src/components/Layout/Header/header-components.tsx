@@ -43,9 +43,9 @@ export const NavigationItems = () => {
         Trang chủ
       </button>
       <button
-        onClick={() => navigate(ROUTERS.IMAGE_RESTORATION)}
+        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENT)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.IMAGE_RESTORATION)
+          isActiveRoute(ROUTERS.HISTORY_DOCUMENT)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}

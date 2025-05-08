@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
-import { LoginData, LoginResponse, RegisterData, User } from "../dataHelper/auth.dataHelper";
-import { ResponseData } from "../utils/type";
+import { LoginData, LoginResponse, RegisterData, User } from "@/dataHelper/auth.dataHelper";
+import { ResponseData } from "@/utils/type";
 
 export const authApi = {
     login: (data: LoginData): Promise<ResponseData<LoginResponse>> =>
