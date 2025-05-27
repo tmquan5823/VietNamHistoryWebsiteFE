@@ -7,11 +7,7 @@ import { z } from "zod";
 import { loginSchema, registerSchema } from "@/utils/schema";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/api/authApi";
-import {
-  LoginResponse,
-  User,
-  RegisterData,
-} from "@/dataHelper/auth.dataHelper";
+import { LoginResponse, RegisterData } from "@/dataHelper/auth.dataHelper";
 import { ResponseData } from "@/utils/type";
 import { useUserStore } from "@/store/useUserStore";
 import OTPVerificationModal from "./login-components/OTPVerificationModal";
@@ -27,9 +23,8 @@ const Login: React.FC = () => {
   const { mutate: login, isPending: isLoginPending } = useMutation({
     mutationFn: (data: LoginFormData) => authApi.login(data),
     onSuccess: (response: ResponseData<LoginResponse>) => {
-      console.log(response);
-      const { accessToken, user } = response.data;
-      useUserStore.getState().login(accessToken, user);
+      const { accessToken, user, refreshToken } = response.data;
+      useUserStore.getState().login(accessToken, user, refreshToken);
       toast.success("Đăng nhập thành công");
     },
     onError: (error: any) => {
@@ -43,11 +38,12 @@ const Login: React.FC = () => {
         email: data.email,
         password: data.password,
         fullname: data.fullName,
+        gender: data.gender,
+        birthday: data.birthday,
       };
       return authApi.register(registerData);
     },
-    onSuccess: (response: ResponseData<User>, variables) => {
-      console.log(response);
+    onSuccess: (_: unknown, variables) => {
       toast.success("Đăng ký thành công");
       setRegisteredEmail(variables.email);
       setShowOtpModal(true);

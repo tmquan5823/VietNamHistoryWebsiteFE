@@ -31,8 +31,6 @@ const HistoryDocumentDetail: React.FC = () => {
     );
 
   const document: Document = data.data;
-  console.log(document);
-
   return (
     <div className="w-[1200px] mx-auto p-6">
       <button
