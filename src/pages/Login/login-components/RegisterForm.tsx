@@ -34,6 +34,8 @@ const RegisterForm = ({
       email: "",
       password: "",
       confirmPassword: "",
+      gender: undefined,
+      birthday: "",
     },
   });
 
@@ -81,6 +83,62 @@ const RegisterForm = ({
             </FormItem>
           )}
         />
+
+        <div className="flex gap-4">
+          <div className="w-1/2">
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">
+                    Giới tính
+                  </FormLabel>
+                  <FormControl>
+                    <select
+                      className="h-12 bg-gray-50 border border-gray-300 focus:border-[#5D4037] focus:ring-1 focus:ring-[#5D4037] w-full rounded-md px-3 appearance-none pr-8"
+                      {...field}
+                      disabled={isLoading}
+                    >
+                      <option value="" disabled>
+                        Chọn giới tính
+                      </option>
+                      <option value="male">Nam</option>
+                      <option value="female">Nữ</option>
+                      <option value="other">Khác</option>
+                    </select>
+                  </FormControl>
+                  <span className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    ▼
+                  </span>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-1/2">
+            <FormField
+              control={form.control}
+              name="birthday"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-gray-700 font-semibold text-[#5D4037]">
+                    Ngày sinh
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="date"
+                      className="h-12 bg-gray-50 border-0 focus:border-0 focus:ring-1 focus:ring-[#5D4037]"
+                      {...field}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
         <FormField
           control={form.control}

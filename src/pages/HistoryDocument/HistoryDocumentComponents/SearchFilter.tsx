@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import Select from "react-select";
+import { GroupBase, StylesConfig } from "react-select";
 
 interface SearchFilterProps {
   filterState: {
@@ -61,23 +63,44 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
                 />
               </svg>
             </div>
-            <select
-              className="flex-[1] border border-gray-300 rounded-lg px-2 sm:px-3 py-2 bg-white text-gray-700 min-w-[140px] sm:min-w-[180px] text-sm sm:text-base"
-              value={filterState.periodId}
-              onChange={(e) =>
-                setFilterState((prev: any) => ({
-                  ...prev,
-                  periodId: e.target.value,
-                }))
-              }
-            >
-              <option value="">Tất cả thời kỳ</option>
-              {periods.map((period) => (
-                <option key={period.id} value={period.id}>
-                  {period.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex-[1] min-w-[140px] sm:min-w-[180px]">
+              <Select
+                inputId="period-select"
+                options={[
+                  { value: "", label: "Tất cả thời kỳ" },
+                  ...periods.map((p: any) => ({
+                    value: String(p.id),
+                    label: p.name,
+                  })),
+                ]}
+                value={(() => {
+                  const opts = [
+                    { value: "", label: "Tất cả thời kỳ" },
+                    ...periods.map((p: any) => ({
+                      value: String(p.id),
+                      label: p.name,
+                    })),
+                  ];
+                  return (
+                    opts.find((o) => o.value === filterState.periodId) ||
+                    opts[0]
+                  );
+                })()}
+                onChange={(option) =>
+                  setFilterState((prev: any) => ({
+                    ...prev,
+                    periodId: option ? option.value : "",
+                  }))
+                }
+                isSearchable
+                classNamePrefix="react-select"
+                styles={selectStyles}
+                placeholder="Tất cả thời kỳ"
+                menuPortalTarget={
+                  typeof window !== "undefined" ? document.body : null
+                }
+              />
+            </div>
           </div>
         </div>
         {/* Range slider filter */}
@@ -164,6 +187,36 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       </div>
     </div>
   );
+};
+
+// Style cho ReactSelect
+const selectStyles: StylesConfig<any, false, GroupBase<any>> = {
+  control: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: "#fff",
+    borderColor: state.isFocused ? "#D12827" : provided.borderColor,
+    boxShadow: state.isFocused ? "0 0 0 1px #D12827" : provided.boxShadow,
+    "&:hover": {
+      borderColor: "#D12827",
+    },
+  }),
+  option: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? "#FDDAA7"
+      : state.isFocused
+      ? "#FFEBC1"
+      : undefined,
+    color: "#5D4037",
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    color: "#5D4037",
+  }),
+  menuPortal: (base: any) => ({
+    ...base,
+    zIndex: 9999,
+  }),
 };
 
 export default SearchFilter;

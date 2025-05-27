@@ -37,8 +37,26 @@ export const registerSchema = () =>
       ),
     confirmPassword: z
       .string()
-      .min(1, { message: "Xác nhận mật khẩu không được để trống" })
+      .min(1, { message: "Xác nhận mật khẩu không được để trống" }),
+    gender: z.enum(["male", "female", "other"], { required_error: "Vui lòng chọn giới tính" }),
+    birthday: z.string().min(1, { message: "Vui lòng chọn ngày sinh" }),
   }).refine((data) => data.password === data.confirmPassword, {
     message: "Mật khẩu xác nhận không khớp",
     path: ['confirmPassword']
+  });
+
+export const quizSetSchema = () =>
+  z.object({
+    title: z
+      .string()
+      .min(1, { message: "Tiêu đề không được để trống" })
+      .max(100, { message: "Tiêu đề không được vượt quá 100 ký tự" }),
+    description: z
+      .string()
+      .max(300, { message: "Mô tả không được vượt quá 300 ký tự" })
+      .optional()
+      .or(z.literal("").transform(() => undefined)),
+    topic_ids: z.array(z.number()).optional(),
+    thumbnail: z.string().optional(),
+    isPublic: z.boolean(),
   });

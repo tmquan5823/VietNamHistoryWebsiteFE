@@ -9,7 +9,13 @@ import { useUserStore } from "./store/useUserStore";
 import { Suspense } from "react";
 import HistoryDocument from "./pages/HistoryDocument";
 import HistoryDocumentDetail from "./pages/HistoryDocumentDetail";
-
+import { Quiz } from "./pages/Quiz";
+import MyQuiz from "./pages/MyQuiz";
+import { QuizCreate } from "./pages/QuizCreate";
+import { QuizUpdate } from "./pages/QuizUpdate";
+import MyQuizDetail from "./pages/MyQuizView";
+import QuizPlay from "./pages/QuizPlay";
+import Notification from "./pages/Notification";
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
     <div className="size-12 animate-spin rounded-full border-y-2 border-blue-500"></div>
@@ -23,11 +29,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 
 const AuthRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useUserStore();
-  return isAuthenticated ? (
-    <Navigate to={ROUTERS.HOME} />
-  ) : (
-    <>{children}</>
-  );
+  return isAuthenticated ? <Navigate to={ROUTERS.HOME} /> : <>{children}</>;
 };
 
 export default function Router() {
@@ -37,6 +39,22 @@ export default function Router() {
         <Route element={<Layout />}>
           <Route path={ROUTERS.DEFAULT} element={<Home />} />
           <Route path={ROUTERS.HOME} element={<Home />} />
+          {[
+            { path: ROUTERS.QUIZ, element: <Quiz /> },
+            { path: ROUTERS.IMAGE_RESTORATION, element: <ImageRestoration /> },
+            { path: ROUTERS.MY_QUIZ, element: <MyQuiz /> },
+            { path: ROUTERS.QUIZ_CREATE, element: <QuizCreate /> },
+            { path: ROUTERS.QUIZ_UPDATE, element: <QuizUpdate /> },
+            { path: ROUTERS.MY_QUIZ_DETAIL, element: <MyQuizDetail /> },
+            { path: ROUTERS.QUIZ_PLAY, element: <QuizPlay /> },
+            { path: ROUTERS.NOTIFICATION, element: <Notification /> },
+          ].map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={<PrivateRoute>{element}</PrivateRoute>}
+            />
+          ))}
           <Route
             path={ROUTERS.HISTORY_DOCUMENT}
             element={<HistoryDocument />}
@@ -51,14 +69,6 @@ export default function Router() {
               <AuthRoute>
                 <Login />
               </AuthRoute>
-            }
-          />
-          <Route
-            path={ROUTERS.IMAGE_RESTORATION}
-            element={
-              <PrivateRoute>
-                <ImageRestoration />
-              </PrivateRoute>
             }
           />
         </Route>

@@ -5,7 +5,8 @@ import { User } from "@/dataHelper/auth.dataHelper";
 interface UserStore {
   isAuthenticated: boolean;
   user: User | undefined;
-  login: (token: string, user: User) => void;
+  refreshToken: string | undefined;
+  login: (token: string, user: User, refreshToken: string) => void;
   logout: () => void;
 }
 
@@ -17,11 +18,13 @@ export const useUserStore = create<
     (set) => ({
       isAuthenticated: false,
       user: undefined,
-      login(token: string, user: User) {
+      refreshToken: undefined,
+      login(token: string, user: User, refreshToken: string) {
         setAccessToken(token);
         set(() => ({
           isAuthenticated: true,
           user,
+          refreshToken,
         }));
       },
       logout() {
@@ -29,6 +32,7 @@ export const useUserStore = create<
         set(() => ({
           isAuthenticated: false,
           user: undefined,
+          refreshToken: undefined,
         }));
       },
     }),
