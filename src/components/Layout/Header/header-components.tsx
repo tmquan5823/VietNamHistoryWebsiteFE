@@ -43,9 +43,9 @@ export const NavigationItems = () => {
         Trang chủ
       </button>
       <button
-        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENT)}
+        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENTS)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.HISTORY_DOCUMENT)
+          isActiveRoute(ROUTERS.HISTORY_DOCUMENTS)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}
@@ -53,9 +53,9 @@ export const NavigationItems = () => {
         Tài liệu
       </button>
       <button
-        onClick={() => navigate(ROUTERS.IMAGE_RESTORATION)}
+        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENTS)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.IMAGE_RESTORATION)
+          isActiveRoute(ROUTERS.HISTORY_DOCUMENTS)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}
@@ -63,9 +63,9 @@ export const NavigationItems = () => {
         Phục chế ảnh
       </button>
       <button
-        onClick={() => navigate(ROUTERS.FORUM)}
+        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENTS)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.FORUM)
+          isActiveRoute(ROUTERS.HISTORY_DOCUMENTS)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}
@@ -73,14 +73,14 @@ export const NavigationItems = () => {
         Diễn đàn
       </button>
       <button
-        onClick={() => navigate(ROUTERS.QUIZ)}
+        onClick={() => navigate(ROUTERS.HISTORY_DOCUMENTS)}
         className={`transition-colors font-medium ${
-          isActiveRoute(ROUTERS.QUIZ)
+          isActiveRoute(ROUTERS.HISTORY_DOCUMENTS)
             ? "text-[#D12827]"
             : "text-[#5D4037] hover:text-[#D12827]"
         }`}
       >
-        Quiz
+        Tài liệu lịch sử
       </button>
     </div>
   );

@@ -63,7 +63,7 @@ const Taskbar: React.FC = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate(ROUTERS.IMAGE_RESTORATION);
+                    navigate(ROUTERS.HISTORY_DOCUMENTS);
                     setIsOpen(false);
                   }}
                   className="w-full p-3 text-center text-[#5D4037] hover:bg-[#5D4037]/10 rounded-lg font-medium"
@@ -74,7 +74,7 @@ const Taskbar: React.FC = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate(ROUTERS.IMAGE_RESTORATION);
+                    navigate(ROUTERS.HISTORY_DOCUMENTS);
                     setIsOpen(false);
                   }}
                   className="w-full p-3 text-center text-[#5D4037] hover:bg-[#5D4037]/10 rounded-lg font-medium"
@@ -85,7 +85,7 @@ const Taskbar: React.FC = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate(ROUTERS.FORUM);
+                    navigate(ROUTERS.HISTORY_DOCUMENTS);
                     setIsOpen(false);
                   }}
                   className="w-full p-3 text-center text-[#5D4037] hover:bg-[#5D4037]/10 rounded-lg font-medium"
@@ -96,12 +96,12 @@ const Taskbar: React.FC = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate(ROUTERS.QUIZ);
+                    navigate(ROUTERS.HISTORY_DOCUMENTS);
                     setIsOpen(false);
                   }}
                   className="w-full p-3 text-center text-[#5D4037] hover:bg-[#5D4037]/10 rounded-lg font-medium"
                 >
-                  Quiz
+                  Tài liệu lịch sử
                 </button>
               </li>
             </ul>

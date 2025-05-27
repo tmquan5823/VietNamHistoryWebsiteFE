@@ -22,5 +22,5 @@ export interface User {
   role: string;
   fullname: string;
   avatar: string;
-  created_at: string;
+  createdAt: string;
 }
