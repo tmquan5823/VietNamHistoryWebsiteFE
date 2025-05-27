@@ -7,6 +7,8 @@ export interface RegisterData {
   email: string;
   password: string;
   fullname: string;
+  gender: string;
+  birthday: string;
 }
 
 export interface LoginResponse {
@@ -22,5 +24,5 @@ export interface User {
   role: string;
   fullname: string;
   avatar: string;
-  created_at: string;
+  createdAt: string;
 }

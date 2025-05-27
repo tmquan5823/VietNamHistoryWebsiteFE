@@ -1,7 +1,7 @@
 import { getAccessToken, setAccessToken } from "../utils/storage";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { toast } from "sonner";
-
+import { useUserStore } from "@/store/useUserStore";
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_URL,
   headers: {
@@ -28,11 +28,14 @@ axiosClient.interceptors.response.use(
       const accessToken = getAccessToken();
       if (accessToken) {
         try {
-          const refreshResponse = await axios.get(
-            `${import.meta.env.VITE_URL}/refresh`,
+          const refreshResponse = await axios.post(
+            `${import.meta.env.VITE_URL}/auth/refresh`,
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
+              },
+              body: {
+                refreshToken: useUserStore.getState().refreshToken,
               },
             }
           );
@@ -59,7 +62,36 @@ axiosClient.interceptors.response.use(
 
     return response.data ?? response;
   },
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
+    const data = error.response?.data as { statusCode?: number } | undefined;
+    if (data?.statusCode === 401) {
+      const accessToken = getAccessToken();
+      if (accessToken) {
+        try {
+          const refreshResponse = await axios.post(
+            `${import.meta.env.VITE_URL}/auth/refresh`,
+            {
+              refreshToken: useUserStore.getState().refreshToken,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          const newAccessToken = refreshResponse.data.data.access_token;
+          if (newAccessToken) {
+            setAccessToken(newAccessToken);
+            return axios(error.config as AxiosRequestConfig);
+          }
+        } catch (refreshError) {
+          toast.error("Failed to refresh token: " + refreshError, {
+            duration: 4000,
+          });
+          return Promise.reject(refreshError);
+        }
+      }
+    }
     return Promise.reject(error);
   }
 );

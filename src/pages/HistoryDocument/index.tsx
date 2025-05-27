@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./HistoryDocumentComponents/Header";
 import SearchFilter from "./HistoryDocumentComponents/SearchFilter";
 import TimelineSlider from "./HistoryDocumentComponents/TimelineSlider";
 import TimelineVertical from "./HistoryDocumentComponents/TimelineVertical";
@@ -12,6 +11,7 @@ import {
   DocumentType,
 } from "@/dataHelper/document.dataHelper";
 import { useMutation } from "@tanstack/react-query";
+import PageContainer from "../../components/common/PageContainer";
 
 const HistoryDocumentComponent: React.FC = () => {
   const [tab, setTab] = useState(1);
@@ -170,11 +170,12 @@ const HistoryDocumentComponent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      {/* Header */}
-      <Header />
+    <PageContainer
+      title="Tổng hợp lịch sử Việt Nam"
+      info="Khám phá hành trình lịch sử hào hùng của dân tộc Việt Nam qua các thời kỳ từ thời dựng nước đến hiện đại"
+    >
       {/* Search & Filter */}
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <SearchFilter
           filterState={filterState}
           setFilterState={setFilterState}
@@ -184,12 +185,12 @@ const HistoryDocumentComponent: React.FC = () => {
         />
       </div>
       {/* Slider thời gian */}
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <TimelineSlider documents={documentTitle} />
       </div>
       {/* Tabs */}
       {documentTypes.length > 0 && (
-        <div className="max-w-7xl mx-auto flex flex-wrap gap-2 mb-4 px-2 sm:px-4 md:px-6 lg:px-8 items-center mt-6 md:mt-10 ">
+        <div className="w-full mx-auto flex flex-wrap gap-2 mb-4 px-2 sm:px-4 md:px-6 lg:px-8 items-center mt-6 md:mt-10 ">
           {documentTypes.map((type) => (
             <button
               key={type.id}
@@ -236,7 +237,7 @@ const HistoryDocumentComponent: React.FC = () => {
           <span className="text-[#D12827] font-semibold">Đang tải...</span>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 };
 
