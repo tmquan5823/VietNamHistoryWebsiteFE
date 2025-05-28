@@ -43,8 +43,46 @@ const useDeleteForumPost = () => {
     });
 }
 
+const useGetPostById = (id: number) => {
+    return useQuery({
+        queryKey: ["forumPost", id],
+        queryFn: () => forumPostApi.getPostById(id),
+    });
+}
+
+const useCancelForumPost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => forumPostApi.cancelPost(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost"] });
+            toast.success("Bài viết đã được hủy đăng tải thành công");
+        },
+        onError: () => {
+            toast.error("Lỗi khi hủy bài viết");
+        },
+    }); 
+}
+
+const useSubmitForumPost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => forumPostApi.submitPost(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost"] });
+            toast.success("Bài viết đã được đăng tải thành công");
+        },
+        onError: () => {
+            toast.error("Lỗi khi đăng tải bài viết");
+        },
+    });
+}
+
 export const useForumPostHook = {
     useCreateForumPost,
     forumPostQuery,
     useDeleteForumPost,
+    useGetPostById,
+    useCancelForumPost, 
+    useSubmitForumPost,
 }

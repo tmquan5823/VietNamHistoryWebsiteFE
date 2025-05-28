@@ -1,13 +1,16 @@
 import React from "react";
 import { ForumPost } from "@/dataHelper/forumPost.dataHelper";
-import { statusMapForum } from "@/constant";
+import { statusMapForum, ROUTERS } from "@/constant";
 import { CiTimer } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 interface PostItemProps {
   post: ForumPost;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
   onView: (id: number) => void;
+  onCancel?: (id: number) => void;
+  onSubmit?: (id: number) => void;
 }
 
 // Hàm trả về style cho từng status
@@ -34,8 +37,13 @@ const PostItem: React.FC<PostItemProps> = ({
   post,
   onEdit,
   onDelete,
-  onView,
+  onCancel,
+  onSubmit,
 }) => {
+  const navigate = useNavigate();
+  const handleView = () => {
+    navigate(ROUTERS.MY_POST_DETAIL.replace(":id", post.id.toString()));
+  };
   return (
     <div className="bg-white rounded-lg shadow border border-neutral-200 p-4 flex flex-col md:flex-row gap-4 items-center relative">
       {/* Ảnh đại diện bài viết */}
@@ -45,14 +53,35 @@ const PostItem: React.FC<PostItemProps> = ({
         className="w-14 h-14 object-cover bg-neutral-100 flex-shrink-0"
       />
       <div className="flex-1 w-full flex flex-col h-full">
-        {/* Status ở góc trên bên phải */}
-        <span
-          className="absolute top-2 right-2 px-2 py-0.5 rounded text-xs font-medium select-none"
-          style={getStatusStyle(post.status)}
+        {/* Status và nút chức năng theo status ở góc trên bên phải */}
+        <div className="absolute top-2 right-2 flex items-center gap-2">
+          <span
+            className="px-2 py-0.5 rounded text-xs font-medium select-none"
+            style={getStatusStyle(post.status)}
+          >
+            {statusMapForum[post.status] || post.status}
+          </span>
+          {post.status === "pending" && (
+            <button
+              className="px-3 py-1 rounded bg-neutral-500 text-white text-xs font-semibold hover:bg-neutral-600 transition"
+              onClick={() => onCancel && onCancel(post.id)}
+            >
+              Hủy đăng tải
+            </button>
+          )}
+          {post.status === "local" && (
+            <button
+              className="px-3 py-1 rounded bg-green-600 text-white text-xs font-semibold hover:bg-green-700 transition"
+              onClick={() => onSubmit && onSubmit(post.id)}
+            >
+              Đăng tải
+            </button>
+          )}
+        </div>
+        <h2
+          className="text-lg font-semibold text-[#5D4037] break-all mb-2 cursor-pointer transition-colors duration-200 hover:text-[#D12827]"
+          onClick={handleView}
         >
-          {statusMapForum[post.status] || post.status}
-        </span>
-        <h2 className="text-lg font-semibold text-[#5D4037] break-all mb-2">
           {post.title}
         </h2>
         {/* Topics */}
@@ -78,7 +107,7 @@ const PostItem: React.FC<PostItemProps> = ({
           <div className="flex gap-2 justify-end">
             <button
               className="px-3 py-1 rounded bg-neutral-200 text-[#5D4037] text-xs font-semibold hover:bg-neutral-300 transition"
-              onClick={() => onView(post.id)}
+              onClick={handleView}
             >
               Xem
             </button>
