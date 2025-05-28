@@ -19,7 +19,7 @@ import Notification from "./pages/Notification";
 import MyPost from "./pages/MyPost";
 import PostCreate from "./pages/PostCreate";
 import MyPostDetail from "./pages/MyPostDetail";
-
+import PostUpdate from "./pages/PostUpdate";
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
     <div className="size-12 animate-spin rounded-full border-y-2 border-blue-500"></div>
@@ -55,6 +55,7 @@ export default function Router() {
             { path: ROUTERS.MY_POST, element: <MyPost /> },
             { path: ROUTERS.FORUM_CREATE, element: <PostCreate /> },
             { path: ROUTERS.MY_POST_DETAIL, element: <MyPostDetail /> },
+            { path: ROUTERS.FORUM_UPDATE, element: <PostUpdate /> },
           ].map(({ path, element }) => (
             <Route
               key={path}

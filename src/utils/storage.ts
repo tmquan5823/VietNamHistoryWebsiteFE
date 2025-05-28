@@ -77,3 +77,18 @@ export const removeForumPostDraft = () => {
   localStorage.removeItem(FORUM_POST_DRAFT_KEY);
 };
 
+//Forum post update draft
+const getForumPostUpdateDraftKey = (id: string | number) => `forumPostUpdateDraft_${id}`;
+
+export const getForumPostUpdateDraft = (id: string | number) => {
+  const data = localStorage.getItem(getForumPostUpdateDraftKey(id));
+  return data ? JSON.parse(data) : null;
+};
+
+export const setForumPostUpdateDraft = (id: string | number, forumPost: any) => {
+  localStorage.setItem(getForumPostUpdateDraftKey(id), JSON.stringify(forumPost));
+};
+
+export const removeForumPostUpdateDraft = (id: string | number) => {
+  localStorage.removeItem(getForumPostUpdateDraftKey(id));
+};

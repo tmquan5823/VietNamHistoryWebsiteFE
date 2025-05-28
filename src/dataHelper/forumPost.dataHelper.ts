@@ -10,6 +10,7 @@ export interface ForumPost {
     updatedAt: string;
     status: ForumPostStatus;
     topics: Topic[]; 
+    topic_id: number[];
     creator?: User;
 }
 
@@ -22,6 +23,7 @@ export interface ForumPostResponse {
 }
 
 export interface ForumPostCreateParams {
+    id?: number;
     title: string;
     content: string;
     status: ForumPostStatus;

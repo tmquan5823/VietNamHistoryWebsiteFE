@@ -29,6 +29,22 @@ const useCreateForumPost = () => {
     });
 }
 
+const useUpdateForumPost = (id: number) => {
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    return useMutation({
+        mutationFn: (data: ForumPostCreateParams) => forumPostApi.updatePost(id, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost", id] });
+            navigate(ROUTERS.MY_POST);
+            toast.success("Bài viết đã được cập nhật thành công");
+        },
+        onError: () => {
+            toast.error("Lỗi khi cập nhật bài viết");
+        },
+    });     
+}
+
 const useDeleteForumPost = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -85,4 +101,5 @@ export const useForumPostHook = {
     useGetPostById,
     useCancelForumPost, 
     useSubmitForumPost,
+    useUpdateForumPost,
 }

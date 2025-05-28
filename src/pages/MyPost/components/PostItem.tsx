@@ -35,7 +35,6 @@ const getStatusStyle = (status: string) => {
 
 const PostItem: React.FC<PostItemProps> = ({
   post,
-  onEdit,
   onDelete,
   onCancel,
   onSubmit,
@@ -43,6 +42,9 @@ const PostItem: React.FC<PostItemProps> = ({
   const navigate = useNavigate();
   const handleView = () => {
     navigate(ROUTERS.MY_POST_DETAIL.replace(":id", post.id.toString()));
+  };
+  const handleEdit = () => {
+    navigate(ROUTERS.FORUM_UPDATE.replace(":id", post.id.toString()));
   };
   return (
     <div className="bg-white rounded-lg shadow border border-neutral-200 p-4 flex flex-col md:flex-row gap-4 items-center relative">
@@ -113,7 +115,7 @@ const PostItem: React.FC<PostItemProps> = ({
             </button>
             <button
               className="px-3 py-1 rounded bg-yellow-400 text-white text-xs font-semibold hover:bg-yellow-500 transition"
-              onClick={() => onEdit(post.id)}
+              onClick={handleEdit}
             >
               Sửa
             </button>
