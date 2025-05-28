@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import QuizList from "./components/quizList";
 import Action from "./components/Action";
-import { useQuizSetHook } from "@/hooks/useQuizSetHook";
 import Pagination from "@/components/common/Pagination";
 import { useTopicHook } from "@/hooks/useTopicHook";
-import { removeQuizEditDraft } from "@/utils/storage";
+import { useForumPostHook } from "@/hooks/useForumPostHook";
+import PostList from "./components/PostList";
+import ConfirmModal from "@/components/common/ConfirmModal";
+
 const MyPost: React.FC = () => {
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -12,7 +13,30 @@ const MyPost: React.FC = () => {
   const [status, setStatus] = useState("");
   const [sort, setSort] = useState("createdAt_DESC");
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit] = useState(10);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  let sort_by = undefined;
+  let sort_order = undefined;
+  if (sort) {
+    const lastUnderscore = sort.lastIndexOf("_");
+    if (lastUnderscore !== -1) {
+      sort_by = sort.substring(0, lastUnderscore);
+      sort_order = sort.substring(lastUnderscore + 1);
+    }
+  }
+
+  const { data: forumPosts, isLoading } = useForumPostHook.forumPostQuery({
+    page,
+    limit,
+    search,
+    topic_id: topic,
+    status,
+    sort_by,
+    sort_order,
+  });
+  console.log("[DEBUG] forumPosts:", forumPosts);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -44,50 +68,35 @@ const MyPost: React.FC = () => {
     setPage(1);
   };
 
-  const { mutate: publishQuiz } = useQuizSetHook.submitApprovalQuizSetQuery();
-  const handlePublishQuiz = (id: number) => {
-    publishQuiz(id);
-  };
-
-  const { mutate: unpublishQuiz } = useQuizSetHook.unpublishQuizSetQuery();
-  const handleUnpublishQuiz = (id: number) => {
-    unpublishQuiz(id);
-  };
-
-  let sort_by = undefined;
-  let sort_order = undefined;
-  if (sort) {
-    const lastUnderscore = sort.lastIndexOf("_");
-    if (lastUnderscore !== -1) {
-      sort_by = sort.substring(0, lastUnderscore);
-      sort_order = sort.substring(lastUnderscore + 1);
-    }
-  }
-
-  const queryParams = {
-    search: search ? search : undefined,
-    topic_id: topic ? topic : undefined,
-    status: status ? status : undefined,
-    sort_by,
-    sort_order,
-    page,
-    limit,
-  };
-
-  const { data: quizSets, isLoading } =
-    useQuizSetHook.quizSetQuery(queryParams);
-  const dataQuizSets = quizSets?.data;
-
   const { data: topics } = useTopicHook.topicQuery();
+  const { mutate: deletePost } = useForumPostHook.useDeleteForumPost();
+  const totalPages = forumPosts?.data?.totalPages || 1;
+  const currentPage = forumPosts?.data?.page || page;
 
-  const totalPages = dataQuizSets
-    ? Math.ceil(dataQuizSets.total / dataQuizSets.limit)
-    : 1;
+  const handleEditPost = (id: number) => {
+    console.log("Edit post with id:", id);
+  };
 
-  const { mutate: deleteQuizSet } = useQuizSetHook.deleteQuizSetQuery();
-  const handleDeleteQuizSet = (id: number) => {
-    deleteQuizSet(id);
-    removeQuizEditDraft(id);
+  const handleDeletePost = (id: number) => {
+    setDeleteId(id);
+    setShowConfirm(true);
+  };
+
+  const handleViewPost = (id: number) => {
+    console.log("View post with id:", id);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteId !== null) {
+      deletePost(deleteId);
+      setShowConfirm(false);
+      setDeleteId(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirm(false);
+    setDeleteId(null);
   };
 
   return (
@@ -116,21 +125,31 @@ const MyPost: React.FC = () => {
             <div>Đang tải dữ liệu...</div>
           ) : (
             <>
-              {dataQuizSets?.data && dataQuizSets.data.length > 0 ? (
+              {forumPosts?.data && forumPosts.data.data.length > 0 ? (
                 <>
-                  <QuizList
-                    quizzes={dataQuizSets.data}
-                    onPublishQuiz={handlePublishQuiz}
-                    onUnpublishQuiz={handleUnpublishQuiz}
-                    onDeleteQuizSet={handleDeleteQuizSet}
+                  <PostList
+                    posts={forumPosts?.data?.data ?? []}
+                    onEdit={handleEditPost}
+                    onDelete={handleDeletePost}
+                    onView={handleViewPost}
                   />
                   {totalPages > 1 && (
                     <Pagination
-                      page={page}
+                      page={currentPage}
                       totalPages={totalPages}
                       onPageChange={setPage}
                     />
                   )}
+                  <ConfirmModal
+                    open={showConfirm}
+                    title="Xác nhận xóa bài viết"
+                    description="Bạn có chắc chắn muốn xóa bài viết này? Hành động này không thể hoàn tác."
+                    onCancel={handleCancelDelete}
+                    onConfirm={handleConfirmDelete}
+                    confirmText="Xóa"
+                    cancelText="Hủy"
+                    confirmClass="bg-red-500 text-white hover:bg-red-600"
+                  />
                 </>
               ) : (
                 <div className="flex justify-center items-center h-20">

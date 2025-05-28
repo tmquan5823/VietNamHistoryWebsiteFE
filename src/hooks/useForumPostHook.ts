@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 
-const forumPostQuery = () => {
+const forumPostQuery = (params?: any) => {
     return useQuery({   
-      queryKey: ["forumPost"],
-      queryFn: () => forumPostApi.getForumPosts(),
+      queryKey: ["forumPost", params],
+      queryFn: () => forumPostApi.getForumPosts(params),
     });
 };
 
@@ -29,7 +29,22 @@ const useCreateForumPost = () => {
     });
 }
 
+const useDeleteForumPost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => forumPostApi.deletePost(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost"] });
+            toast.success("Bài viết đã được xóa thành công");
+        },
+        onError: () => {
+            toast.error("Lỗi khi xóa bài viết");
+        },
+    });
+}
+
 export const useForumPostHook = {
     useCreateForumPost,
     forumPostQuery,
+    useDeleteForumPost,
 }

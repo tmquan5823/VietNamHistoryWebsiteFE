@@ -54,7 +54,6 @@ const PostCreate: React.FC = () => {
 
   const { mutateAsync: uploadImage } = useImageHook.uploadImage();
 
-  // Lưu draft mỗi khi form thay đổi
   React.useEffect(() => {
     const subscription = form.watch((value) => {
       setForumPostDraft({
@@ -72,7 +71,7 @@ const PostCreate: React.FC = () => {
         ...data,
         status: postToForum ? ForumPostStatus.PENDING : ForumPostStatus.LOCAL,
       });
-      removeForumPostDraft(); // Xóa draft khi tạo thành công
+      removeForumPostDraft();
     } catch (e: any) {
       toast.error(e?.response?.data?.message || "Tạo bài viết thất bại");
     }

@@ -41,9 +41,12 @@ function Action({
   ];
   const statusOptions = [
     { value: "", label: "Tất cả trạng thái" },
-    { value: "publish", label: "Đã công khai" },
-    { value: "unpublish", label: "Chưa công khai" },
+    { value: "local", label: "Bản nháp" },
+    { value: "approved", label: "Đã duyệt" },
     { value: "pending", label: "Chờ duyệt" },
+    { value: "rejected", label: "Đã từ chối" },
+    { value: "inactive", label: "Vô hiệu hóa" },
+    { value: "needs_review", label: "Cần kiểm duyệt" },
   ];
   const sortOptions = [
     { value: "createdAt_DESC", label: "Mới nhất" },
