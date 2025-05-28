@@ -59,6 +59,16 @@ const MyPost: React.FC = () => {
     setPage(1);
   };
 
+  const { mutate: cancelPost } = useForumPostHook.useCancelForumPost();
+  const handleCancelPost = (id: number) => {
+    cancelPost(id);
+  };
+
+  const { mutate: submitPost } = useForumPostHook.useSubmitForumPost();
+  const handleSubmitPost = (id: number) => {
+    submitPost(id);
+  };
+
   const handleResetFilters = () => {
     setSearch("");
     setSearchInput("");
@@ -132,6 +142,8 @@ const MyPost: React.FC = () => {
                     onEdit={handleEditPost}
                     onDelete={handleDeletePost}
                     onView={handleViewPost}
+                    onCancel={handleCancelPost}
+                    onSubmit={handleSubmitPost}
                   />
                   {totalPages > 1 && (
                     <Pagination

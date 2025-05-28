@@ -7,6 +7,8 @@ interface PostListProps {
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
   onView: (id: number) => void;
+  onCancel: (id: number) => void;
+  onSubmit: (id: number) => void;
 }
 
 const PostList: React.FC<PostListProps> = ({
@@ -14,6 +16,8 @@ const PostList: React.FC<PostListProps> = ({
   onEdit,
   onDelete,
   onView,
+  onCancel,
+  onSubmit,
 }) => {
   return (
     <div className="grid gap-4">
@@ -25,6 +29,8 @@ const PostList: React.FC<PostListProps> = ({
             onEdit={onEdit}
             onDelete={onDelete}
             onView={onView}
+            onCancel={onCancel}
+            onSubmit={onSubmit}
           />
         ))}
     </div>

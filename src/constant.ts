@@ -11,6 +11,7 @@ export const enum ROUTERS {
   
   FORUM = "/forum",
   MY_POST = "/my-post", 
+  MY_POST_DETAIL = "/my-post/:id",
   FORUM_CREATE = "/forum/post-create",
   FORUM_UPDATE = "/forum/post-update/:id",
   FORUM_DETAIL = "/forum/:id",

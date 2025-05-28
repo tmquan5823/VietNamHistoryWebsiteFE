@@ -1,3 +1,4 @@
+import { User } from "./auth.dataHelper";
 import { Topic } from "./topic.dataHelper";
 
 export interface ForumPost {
@@ -8,7 +9,8 @@ export interface ForumPost {
     createdAt: string;
     updatedAt: string;
     status: ForumPostStatus;
-    topics: Topic[];    
+    topics: Topic[]; 
+    creator?: User;
 }
 
 export interface ForumPostResponse {

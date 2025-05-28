@@ -18,6 +18,7 @@ import QuizPlay from "./pages/QuizPlay";
 import Notification from "./pages/Notification";
 import MyPost from "./pages/MyPost";
 import PostCreate from "./pages/PostCreate";
+import MyPostDetail from "./pages/MyPostDetail";
 
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
@@ -53,6 +54,7 @@ export default function Router() {
             { path: ROUTERS.NOTIFICATION, element: <Notification /> },
             { path: ROUTERS.MY_POST, element: <MyPost /> },
             { path: ROUTERS.FORUM_CREATE, element: <PostCreate /> },
+            { path: ROUTERS.MY_POST_DETAIL, element: <MyPostDetail /> },
           ].map(({ path, element }) => (
             <Route
               key={path}
