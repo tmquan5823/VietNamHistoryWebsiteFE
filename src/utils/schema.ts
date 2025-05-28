@@ -60,3 +60,10 @@ export const quizSetSchema = () =>
     thumbnail: z.string().optional(),
     isPublic: z.boolean(),
   });
+
+export const postSchema = z.object({
+  title: z.string().min(3, "Tiêu đề tối thiểu 3 ký tự").max(255, "Tiêu đề tối đa 255 ký tự"),
+  content: z.string().min(10, "Nội dung tối thiểu 10 ký tự"),
+  topic_id: z.array(z.number()).max(3, "Chỉ được chọn tối đa 3 chủ đề"),
+  status: z.string().optional(),
+});
