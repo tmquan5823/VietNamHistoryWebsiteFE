@@ -10,6 +10,11 @@ export const enum ROUTERS {
   HISTORY_DOCUMENT = "/history-document",
   
   FORUM = "/forum",
+  MY_POST = "/my-post", 
+  FORUM_CREATE = "/forum/post-create",
+  FORUM_UPDATE = "/forum/post-update/:id",
+  FORUM_DETAIL = "/forum/:id",
+
   HISTORY_DOCUMENT_DETAIL = "/history-document/:id",
 
   QUIZ = "/quiz",
@@ -36,25 +41,6 @@ export const enum ROLE {
 
 export const enum ROLE_ID {
   SUPER_USER = 5,
-}
-
-export const enum CSV_ORDER_ROW {
-  ShipVisitID = 0,
-  GroupName = 1,
-  HEADER = 2,
-  ShipVisitIDTxt = `訪船ID
-未入力の場合、新規訪船として扱われます。
-更新・削除の場合は、テンプレートをダウンロードして下さい`,
-  GroupNameTxt = `*訪船団体名`,
-}
-
-export const enum SCREEN_ID {
-  ADMIN_DASHBOARD = 1,
-  A_02_00 = 2,
-  A_05_00 = 5,
-  A_07_00 = 7,
-  A_06_00 = 9,
-  A_08_00 = 10,
 }
 
 export const MAX_FILE_SIZE = 1024 * 1024; // 1MB

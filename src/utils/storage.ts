@@ -59,3 +59,21 @@ export const getCurrentQuizResults = (userId: string | number, quizId: string | 
 export const removeCurrentQuizResults = (userId: string | number, quizId: string | number) => {
   localStorage.removeItem(getCurrentQuizResultsKey(userId, quizId));
 };
+
+
+// Forum post draft
+const FORUM_POST_DRAFT_KEY = "forumPostDraft";
+
+export const getForumPostDraft = () => {
+  const data = localStorage.getItem(FORUM_POST_DRAFT_KEY);
+  return data ? JSON.parse(data) : null;
+};
+
+export const setForumPostDraft = (forumPost: any) => {
+  localStorage.setItem(FORUM_POST_DRAFT_KEY, JSON.stringify(forumPost));
+};
+
+export const removeForumPostDraft = () => {
+  localStorage.removeItem(FORUM_POST_DRAFT_KEY);
+};
+

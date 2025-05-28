@@ -203,7 +203,7 @@ export const AccountDropdown = ({ onLogout }: { onLogout: () => void }) => {
             className="flex items-center gap-3 w-full text-left px-5 py-3 text-base text-[#FDDAA7] hover:bg-[#7c5a3a] transition items-center whitespace-nowrap"
             onClick={() => {
               setOpenMenu(false);
-              navigate("/posts");
+              navigate(ROUTERS.MY_POST);
             }}
           >
             <svg
