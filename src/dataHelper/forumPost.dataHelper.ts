@@ -1,11 +1,22 @@
+import { Topic } from "./topic.dataHelper";
+
 export interface ForumPost {
     id: number;
     title: string;
     content: string;
     created_by: number;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     status: ForumPostStatus;
+    topics: Topic[];    
+}
+
+export interface ForumPostResponse {
+    data: ForumPost[];
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
 }
 
 export interface ForumPostCreateParams {

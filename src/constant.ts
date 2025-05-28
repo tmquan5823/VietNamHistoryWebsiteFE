@@ -63,6 +63,14 @@ export const statusMap: Record<string, string> = {
   pending: "Chờ duyệt",
 };
 
+export const statusMapForum: Record<string, string> = {
+  approved: "Đã duyệt",
+  pending: "Chờ duyệt",
+  rejected: "Đã từ chối",
+  inactive: "Đã tắt",
+  local: "Bản nháp",
+  needs_review: "Cần kiểm duyệt",
+};
 
 //Color
 export const COLORS = {
