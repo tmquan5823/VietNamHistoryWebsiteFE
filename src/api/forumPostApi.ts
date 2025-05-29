@@ -19,4 +19,6 @@ export const forumPostApi = {
     axiosClient.put(`/forum-posts/${id}/cancel`),
   submitPost: (id: number): Promise<ResponseData<ForumPost>> =>
     axiosClient.put(`/forum-posts/${id}/submit`),
+  getApprovedForumPosts: (params?: any): Promise<ResponseData<ForumPostResponse>> =>
+    axiosClient.get("/forum-posts/approved", { params }),
 }; 
