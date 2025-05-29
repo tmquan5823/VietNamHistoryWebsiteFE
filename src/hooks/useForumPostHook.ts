@@ -94,6 +94,13 @@ const useSubmitForumPost = () => {
     });
 }
 
+const useGetApprovedForumPosts = (params?: any) => {
+    return useQuery({
+        queryKey: ["forumPost", "approved", params],
+        queryFn: () => forumPostApi.getApprovedForumPosts(params),
+    });
+}
+
 export const useForumPostHook = {
     useCreateForumPost,
     forumPostQuery,
@@ -102,4 +109,5 @@ export const useForumPostHook = {
     useCancelForumPost, 
     useSubmitForumPost,
     useUpdateForumPost,
+    useGetApprovedForumPosts,
 }
