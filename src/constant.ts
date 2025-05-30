@@ -26,6 +26,8 @@ export const enum ROUTERS {
   QUIZ_CREATE = "/quiz-create",
   QUIZ_UPDATE = "/quiz-update/:id",
 
+  PROFILE = "/profile",
+
   NOTIFICATION = "/notification",
 
   BLANK_PAGE = "admin/blank_page",
