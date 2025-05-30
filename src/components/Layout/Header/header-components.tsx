@@ -227,7 +227,7 @@ export const AccountDropdown = ({ onLogout }: { onLogout: () => void }) => {
             className="flex items-center gap-3 w-full text-left px-5 py-3 text-base text-[#FDDAA7] hover:bg-[#7c5a3a] transition items-center whitespace-nowrap"
             onClick={() => {
               setOpenMenu(false);
-              navigate("/profile");
+              navigate(ROUTERS.PROFILE);
             }}
           >
             <svg
@@ -245,7 +245,7 @@ export const AccountDropdown = ({ onLogout }: { onLogout: () => void }) => {
                 d="M16.862 4.487a2.1 2.1 0 1 1 2.97 2.97L7.5 19.79l-4 1 1-4 14.362-14.303z"
               />
             </svg>
-            <span className="whitespace-nowrap">Chỉnh sửa thông tin</span>
+            <span className="whitespace-nowrap">Thông tin cá nhân</span>
           </button>
           <button
             className="flex items-center gap-3 w-full text-left px-5 py-3 text-base text-red-300 hover:bg-[#7c5a3a] transition items-center whitespace-nowrap"

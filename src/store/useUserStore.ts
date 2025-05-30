@@ -8,6 +8,7 @@ interface UserStore {
   refreshToken: string | undefined;
   login: (token: string, user: User, refreshToken: string) => void;
   logout: () => void;
+  updateUserInfo: (userInfo: Partial<User>) => void;
 }
 
 export const useUserStore = create<
@@ -33,6 +34,11 @@ export const useUserStore = create<
           isAuthenticated: false,
           user: undefined,
           refreshToken: undefined,
+        }));
+      },
+      updateUserInfo(userInfo) {
+        set((state) => ({
+          user: state.user ? { ...state.user, ...userInfo } : state.user,
         }));
       },
     }),
