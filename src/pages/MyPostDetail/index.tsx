@@ -5,6 +5,7 @@ import { CiTimer } from "react-icons/ci";
 import { useForumPostHook } from "@/hooks/useForumPostHook";
 import PageContainer from "@/components/common/PageContainer";
 import BackButton from "@/components/ui/backButton";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 const MyPostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +17,10 @@ const MyPostDetail: React.FC = () => {
     useForumPostHook.useCancelForumPost();
   const { mutate: submitPost, isPending: isSubmitPending } =
     useForumPostHook.useSubmitForumPost();
+  const { mutate: savePost, isPending: isSaving } =
+    useForumPostHook.useSaveForumPost();
+  const { mutate: unsavePost, isPending: isUnsaving } =
+    useForumPostHook.useDeleteSavedForumPost();
 
   if (isLoading) return <div>Đang tải...</div>;
   if (error)
@@ -32,6 +37,13 @@ const MyPostDetail: React.FC = () => {
   const handleSubmit = () => {
     if (post.id) {
       submitPost(post.id);
+    }
+  };
+  const handleSave = () => {
+    if (!post.is_saved) {
+      savePost(post.id);
+    } else {
+      unsavePost(post.id);
     }
   };
 
@@ -90,6 +102,19 @@ const MyPostDetail: React.FC = () => {
                   {isSubmitPending ? "Đang đăng..." : "Đăng tải"}
                 </button>
               )}
+              <button
+                className={`px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition z-10 ${
+                  post.is_saved
+                    ? "bg-[#D12827] text-white hover:bg-[#b71c1c]"
+                    : "bg-neutral-200 text-[#5D4037] hover:bg-neutral-300"
+                }`}
+                onClick={handleSave}
+                disabled={isSaving || isUnsaving}
+                title={post.is_saved ? "Bỏ lưu bài viết" : "Lưu bài viết"}
+              >
+                {post.is_saved ? <FaBookmark /> : <FaRegBookmark />}
+                {post.is_saved ? "Đã lưu" : "Lưu bài"}
+              </button>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">

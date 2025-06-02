@@ -101,6 +101,47 @@ const useGetApprovedForumPosts = (params?: any) => {
     });
 }
 
+const useSaveForumPost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => forumPostApi.savePost(id),
+        onSuccess: (_, id) => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost", id] });
+            queryClient.invalidateQueries({ queryKey: ["forumPost"] });
+            queryClient.invalidateQueries({ queryKey: ["forumPost", "saved"] });
+            toast.success("Bài viết đã được lưu thành công");
+        },
+        onError: (error: any) => {
+            toast.error(error.response.data.message);
+        },
+    });
+}
+
+const useGetSavedForumPost = (params?: any) => {
+    return useQuery({
+        queryKey: ["forumPost", "saved", params],
+        queryFn: () => forumPostApi.getSavedForumPost(params),
+    });
+}
+
+const useDeleteSavedForumPost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => forumPostApi.deleteSavedForumPost(id),
+        onSuccess: (_, id) => {
+            queryClient.invalidateQueries({ queryKey: ["forumPost", id] });
+            queryClient.invalidateQueries({ queryKey: ["forumPost"] });
+            queryClient.invalidateQueries({ queryKey: ["forumPost", "saved"] });
+            toast.success("Bài viết đã được xóa khỏi danh sách lưu thành công");
+        },
+        onError: (error: any) => {
+            toast.error(error.response.data.message);
+        },
+    });
+}
+
+
+
 export const useForumPostHook = {
     useCreateForumPost,
     forumPostQuery,
@@ -110,4 +151,7 @@ export const useForumPostHook = {
     useSubmitForumPost,
     useUpdateForumPost,
     useGetApprovedForumPosts,
+    useSaveForumPost,
+    useGetSavedForumPost,
+    useDeleteSavedForumPost,
 }

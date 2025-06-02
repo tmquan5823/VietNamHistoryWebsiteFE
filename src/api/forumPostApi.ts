@@ -21,4 +21,10 @@ export const forumPostApi = {
     axiosClient.put(`/forum-posts/${id}/submit`),
   getApprovedForumPosts: (params?: any): Promise<ResponseData<ForumPostResponse>> =>
     axiosClient.get("/forum-posts/approved", { params }),
+  savePost: (id: number): Promise<ResponseData<null>> =>
+    axiosClient.post(`/forum-posts/save/${id}`),
+  getSavedForumPost: (query?: any): Promise<ResponseData<ForumPostResponse>> =>
+    axiosClient.get("/forum-posts/save", { params: query }),
+  deleteSavedForumPost: (id: number): Promise<ResponseData<null>> =>
+    axiosClient.delete(`/forum-posts/save/${id}`),
 }; 

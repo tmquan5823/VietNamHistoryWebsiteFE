@@ -15,7 +15,8 @@ export const enum ROUTERS {
   FORUM_CREATE = "/forum/post-create",
   FORUM_UPDATE = "/forum/post-update/:id",
   FORUM_DETAIL = "/forum/:id",
-
+  SAVED_POSTS = "/saved-posts",
+  
   HISTORY_DOCUMENT_DETAIL = "/history-document/:id",
 
   QUIZ = "/quiz",
