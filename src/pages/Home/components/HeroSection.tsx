@@ -1,7 +1,10 @@
 import React from "react";
 import HeroImage from "../../../components/common/HeroImage";
+import { ROUTERS } from "@/constant";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative h-[500px] w-full bg-[#FDDAA7]">
       {/* Background image on the right */}
@@ -23,10 +26,16 @@ const HeroSection: React.FC = () => {
             Hành trình 4000 năm lịch sử hào hùng từ thời Hùng Vương đến hiện đại
           </p>
           <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
-            <button className="border-2 border-[#D12827] bg-[#D12827] text-white px-4 sm:px-6 py-2 sm:py-3 hover:bg-[#D12827]/90 transition font-bold rounded-3xl">
+            <button
+              onClick={() => navigate(ROUTERS.FORUM)}
+              className="border-2 border-[#D12827] bg-[#D12827] text-white px-4 sm:px-6 py-2 sm:py-3 hover:bg-[#D12827]/90 transition font-bold rounded-3xl"
+            >
               Khám phá lịch sử
             </button>
-            <button className="border-2 border-[#D12827] text-[#D12827] px-4 sm:px-6 py-2 sm:py-3 rounded-3xl font-bold">
+            <button
+              onClick={() => navigate(ROUTERS.IMAGE_RESTORATION)}
+              className="border-2 border-[#D12827] text-[#D12827] px-4 sm:px-6 py-2 sm:py-3 rounded-3xl font-bold"
+            >
               Phục chế ảnh
             </button>
           </div>

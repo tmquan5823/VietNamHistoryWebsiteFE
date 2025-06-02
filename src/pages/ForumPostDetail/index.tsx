@@ -5,6 +5,7 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { useForumPostHook } from "@/hooks/useForumPostHook";
 import PageContainer from "@/components/common/PageContainer";
 import BackButton from "@/components/ui/backButton";
+import Loading from "@/components/common/Loading";
 
 const ForumDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +18,7 @@ const ForumDetail: React.FC = () => {
   const { mutate: unsavePost, isPending: isUnsaving } =
     useForumPostHook.useDeleteSavedForumPost();
 
-  if (isLoading) return <div>Đang tải...</div>;
+  if (isLoading) return <Loading />;
   if (error)
     return <div>Không tìm thấy bài viết hoặc bạn không có quyền xem.</div>;
   if (!data?.data) return <div>Không có dữ liệu.</div>;

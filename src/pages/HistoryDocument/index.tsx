@@ -12,6 +12,7 @@ import {
 } from "@/dataHelper/document.dataHelper";
 import { useMutation } from "@tanstack/react-query";
 import PageContainer from "../../components/common/PageContainer";
+import Loading from "@/components/common/Loading";
 
 const HistoryDocumentComponent: React.FC = () => {
   const [tab, setTab] = useState(1);
@@ -234,7 +235,7 @@ const HistoryDocumentComponent: React.FC = () => {
       </div>
       {loading && (
         <div className="w-full flex justify-center py-4">
-          <span className="text-[#D12827] font-semibold">Đang tải...</span>
+          <Loading />
         </div>
       )}
     </PageContainer>
