@@ -19,6 +19,7 @@ import {
 import { useUserStore } from "@/store/useUserStore";
 import { QuizResults } from "@/dataHelper/quizSet.dataHelper";
 import QuizLeaderboard from "@/components/common/QuizLeaderboard";
+import Loading from "@/components/common/Loading";
 
 const QuizPlay: React.FC = () => {
   const { id } = useParams();
@@ -47,7 +48,6 @@ const QuizPlay: React.FC = () => {
     isLoading: isLoadingLeaderboard,
     refetch: refetchLeaderboard,
   } = useQuizSetHook.getQuizLeaderboardQuery(Number(id));
-  // Lấy lại kết quả lưu trong storage nếu có
   React.useEffect(() => {
     if (id && user && showModal) {
       const saved = getCurrentQuizResults(user.id, id);
@@ -58,7 +58,6 @@ const QuizPlay: React.FC = () => {
         }
       }
     }
-    // eslint-disable-next-line
   }, [id, user, showModal]);
 
   React.useEffect(() => {
@@ -88,7 +87,6 @@ const QuizPlay: React.FC = () => {
     setAnswerResults({});
     setShowConfirm(false);
 
-    // Reset redux quizPlay trước khi fetch mới
     dispatch(resetQuiz());
 
     setShowModal(true);
@@ -106,13 +104,10 @@ const QuizPlay: React.FC = () => {
     } else if (currentSlideIdx === quizPlay.questions.length - 1) {
       setCurrentSlideIdx(quizPlay.questions.length);
       setCheckedAnswer(undefined);
-      // Xóa storage kết quả quiz hiện tại
       if (id && user) removeCurrentQuizResults(user.id, id);
-      // Không gọi hook ở đây, quizResults sẽ được fetch tự động nhờ shouldFetchResults
     }
   };
 
-  // Hàm submit đáp án cho câu hỏi hiện tại
   const handleSubmitQuizQuestion = async (userAnswer: QuizQuestionCheck) => {
     const question = quizPlay.questions[currentSlideIdx];
     const payload: QuizQuestionCheck = {
@@ -128,10 +123,8 @@ const QuizPlay: React.FC = () => {
       payload.is_end_time = userAnswer.is_end_time;
     const result = await submitQuizQuestionMutation.mutateAsync(payload);
     setCheckedAnswer(result.data);
-    // Lưu kết quả vào answerResults
     setAnswerResults((prev) => {
       const newResults = { ...prev, [question.number]: result.data };
-      // Lưu vào storage kèm currentSlideIdx
       if (id && user)
         setCurrentQuizResults(user.id, id, {
           answerResults: newResults,
@@ -141,7 +134,7 @@ const QuizPlay: React.FC = () => {
     });
   };
 
-  if (isLoading) return <div className="text-center py-10">Đang tải...</div>;
+  if (isLoading) return <Loading fullscreen />;
   if (!quizSet)
     return (
       <div className="text-center py-10 text-red-500">
@@ -188,7 +181,6 @@ const QuizPlay: React.FC = () => {
                           typeof saved.currentSlideIdx === "number"
                             ? saved.currentSlideIdx
                             : 0;
-                        // Nếu đã trả lời xong slide này thì chuyển sang slide tiếp theo
                         const answeredNumbers = Object.keys(
                           saved.answerResults
                         ).map(Number);
@@ -225,7 +217,6 @@ const QuizPlay: React.FC = () => {
             />
           )}
         </Modal>
-        {/* Bảng xếp hạng */}
         {leaderboardData?.data && (
           <QuizLeaderboard leaderboard={leaderboardData.data} />
         )}

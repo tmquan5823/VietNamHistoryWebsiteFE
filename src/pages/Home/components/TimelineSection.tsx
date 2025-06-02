@@ -1,46 +1,18 @@
 import React, { useState, useEffect } from "react";
 import SectionContainer from "../../../components/common/SectionContainer";
+import { ROUTERS } from "@/constant";
+import { useNavigate } from "react-router-dom";
+import { Document } from "@/dataHelper/dashboard.dataHelper";
 
-const timelineData = [
-  {
-    title: "Thời Hùng Vương",
-    period: "2879 TCN - 258 TCN",
-    description:
-      "Thời kỳ các vua Hùng dựng nước Văn Lang, đặt nền móng cho dân tộc Việt Nam",
-    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
-  },
-  {
-    title: "Thời Bắc thuộc",
-    period: "111 TCN - 938",
-    description:
-      "Thời kỳ đất nước bị các triều đại phong kiến phương Bắc đô hộ",
-    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
-  },
-  {
-    title: "Thời phong kiến độc lập",
-    period: "938 - 1858",
-    description:
-      "Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước Thời kỳ các triều đại phong kiến Việt Nam xây dựng và bảo vệ đất nước ",
-    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
-  },
-  {
-    title: "Thời cận hiện đại",
-    period: "1858 - nay",
-    description: "Thời kỳ đấu tranh giành độc lập và xây dựng đất nước",
-    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
-  },
-  {
-    title: "Thời cận hiện đại 123",
-    period: "1858 - nay",
-    description: "Thời kỳ đấu tranh giành độc lập và xây dựng đất nước",
-    image: import.meta.env.VITE_BASE_URL + "images/vietnam-history.jpg",
-  },
-];
+interface TimelineSectionProps {
+  data: Document[];
+}
 
-const TimelineSection: React.FC = () => {
+const TimelineSection: React.FC<TimelineSectionProps> = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-
+  const timelineData = Array.isArray(data) ? data : [];
+  const navigate = useNavigate();
   // Update items per page based on screen size
   useEffect(() => {
     const handleResize = () => {
@@ -144,13 +116,25 @@ const TimelineSection: React.FC = () => {
                     <h3 className="text-lg sm:text-xl font-bold text-[#5D4137] mb-2 line-clamp-1">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-gray-500 mb-2">{item.period}</p>
+                    <p className="text-sm text-gray-500 mb-2">
+                      {item.start_year} - {item.end_year}
+                    </p>
                     <p className="text-sm sm:text-base text-[#5D4137]/80 mb-4 line-clamp-3">
                       {item.description}
                     </p>
                   </div>
                   <div>
-                    <button className="text-[#D12827] font-medium hover:underline transition-colors">
+                    <button
+                      onClick={() => {
+                        navigate(
+                          ROUTERS.HISTORY_DOCUMENT_DETAIL.replace(
+                            ":id",
+                            item.id.toString()
+                          )
+                        );
+                      }}
+                      className="text-[#D12827] font-medium hover:underline transition-colors"
+                    >
                       Khám phá thêm
                     </button>
                   </div>
