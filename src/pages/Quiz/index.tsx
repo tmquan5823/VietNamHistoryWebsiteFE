@@ -6,6 +6,7 @@ import MyQuizCarousel from "./components/MyQuizCarousel";
 import { useQuizSetHook } from "@/hooks/useQuizSetHook";
 import Pagination from "@/components/common/Pagination";
 import { useTopicHook } from "@/hooks/useTopicHook";
+import Loading from "@/components/common/Loading";
 
 export const Quiz: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -28,16 +29,15 @@ export const Quiz: React.FC = () => {
     }
   }
 
-  const { data: publishedQuizSets } =
-    useQuizSetHook.publishedQuizSetQuery({
-      search,
-      topic_id: topic,
-      sort_by,
-      sort_order,
-      page,
-      limit,
-      filter_type: filterType,
-    });
+  const { data: publishedQuizSets } = useQuizSetHook.publishedQuizSetQuery({
+    search,
+    topic_id: topic,
+    sort_by,
+    sort_order,
+    page,
+    limit,
+    filter_type: filterType,
+  });
   console.log(publishedQuizSets);
 
   const { data: myQuizSets } = useQuizSetHook.quizSetQuery({
@@ -104,13 +104,19 @@ export const Quiz: React.FC = () => {
           <MyQuizCarousel quizzes={myQuizSets?.data?.data || []} />
         </div>
         <div className="flex-1 flex flex-col">
-          <QuizList quizzes={publishedQuizSets?.data?.data || []} />
-          {totalPages > 1 && (
-            <Pagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
+          {!publishedQuizSets?.data ? (
+            <Loading />
+          ) : (
+            <>
+              <QuizList quizzes={publishedQuizSets?.data?.data || []} />
+              {totalPages > 1 && (
+                <Pagination
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
+              )}
+            </>
           )}
         </div>
       </div>

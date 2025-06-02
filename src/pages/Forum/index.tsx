@@ -6,6 +6,7 @@ import PostList from "./components/PostList";
 import { useTopicHook } from "@/hooks/useTopicHook";
 import Pagination from "@/components/common/Pagination";
 import { useUserStore } from "@/store/useUserStore";
+import Loading from "@/components/common/Loading";
 
 const Forum: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -99,7 +100,7 @@ const Forum: React.FC = () => {
               Bài viết đã duyệt
             </h1>
             {isLoading ? (
-              <div>Đang tải dữ liệu...</div>
+              <Loading />
             ) : (
               <>
                 {forumPosts?.data && forumPosts.data.data.length > 0 ? (
