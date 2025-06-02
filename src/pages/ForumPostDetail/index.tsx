@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { CiTimer } from "react-icons/ci";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { useForumPostHook } from "@/hooks/useForumPostHook";
 import PageContainer from "@/components/common/PageContainer";
 import BackButton from "@/components/ui/backButton";
@@ -11,12 +12,26 @@ const ForumDetail: React.FC = () => {
   const { data, isLoading, error } = useForumPostHook.useGetPostById(
     Number(id)
   );
+  const { mutate: savePost, isPending: isSaving } =
+    useForumPostHook.useSaveForumPost();
+  const { mutate: unsavePost, isPending: isUnsaving } =
+    useForumPostHook.useDeleteSavedForumPost();
+
   if (isLoading) return <div>Đang tải...</div>;
   if (error)
     return <div>Không tìm thấy bài viết hoặc bạn không có quyền xem.</div>;
   if (!data?.data) return <div>Không có dữ liệu.</div>;
 
   const post = data.data;
+
+  const handleSave = () => {
+    if (!post.is_saved) {
+      savePost(post.id);
+    } else {
+      unsavePost(post.id);
+    }
+  };
+
   return (
     <PageContainer>
       <div className="w-full flex justify-start mb-4">
@@ -27,6 +42,19 @@ const ForumDetail: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2 relative">
             <h1 className="text-2xl font-bold text-[#5D4037]">{post.title}</h1>
+            <button
+              className={`absolute top-0 right-0 px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition z-10 ${
+                post.is_saved
+                  ? "bg-[#D12827] text-white hover:bg-[#b71c1c]"
+                  : "bg-neutral-200 text-[#5D4037] hover:bg-neutral-300"
+              }`}
+              onClick={handleSave}
+              disabled={isSaving || isUnsaving}
+              title={post.is_saved ? "Bỏ lưu bài viết" : "Lưu bài viết"}
+            >
+              {post.is_saved ? <FaBookmark /> : <FaRegBookmark />}
+              {post.is_saved ? "Đã lưu" : "Lưu bài"}
+            </button>
           </div>
           <div className="flex flex-wrap gap-2">
             {post.topics?.map((topic) => (

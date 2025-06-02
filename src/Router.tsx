@@ -23,6 +23,7 @@ import PostUpdate from "./pages/PostUpdate";
 import Forum from "./pages/Forum";
 import ForumDetail from "./pages/ForumPostDetail";
 import Profile from "./pages/Profile";
+import SavedPosts from "./pages/SavedPosts";
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
     <div className="size-12 animate-spin rounded-full border-y-2 border-blue-500"></div>
@@ -62,6 +63,7 @@ export default function Router() {
             { path: ROUTERS.FORUM, element: <Forum /> },
             { path: ROUTERS.FORUM_DETAIL, element: <ForumDetail /> },
             { path: ROUTERS.PROFILE, element: <Profile /> },
+            { path: ROUTERS.SAVED_POSTS, element: <SavedPosts /> },
           ].map(({ path, element }) => (
             <Route
               key={path}

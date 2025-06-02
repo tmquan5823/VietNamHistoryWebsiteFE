@@ -11,6 +11,7 @@ export interface ForumPost {
     status: ForumPostStatus;
     topics: Topic[]; 
     topic_id: number[];
+    is_saved: boolean;
     creator?: User;
 }
 
