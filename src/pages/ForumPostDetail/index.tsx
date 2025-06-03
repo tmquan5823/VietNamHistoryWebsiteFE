@@ -44,7 +44,7 @@ const ForumDetail: React.FC = () => {
           <div className="flex items-center justify-between mb-2 relative">
             <h1 className="text-2xl font-bold text-[#5D4037]">{post.title}</h1>
             <button
-              className={`absolute top-0 right-0 px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition z-10 ${
+              className={`absolute top-0 right-0 px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition ${
                 post.is_saved
                   ? "bg-[#D12827] text-white hover:bg-[#b71c1c]"
                   : "bg-neutral-200 text-[#5D4037] hover:bg-neutral-300"

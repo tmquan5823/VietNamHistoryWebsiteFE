@@ -223,6 +223,31 @@ export const AccountDropdown = ({ onLogout }: { onLogout: () => void }) => {
             </svg>
             <span className="whitespace-nowrap">Bài đăng</span>
           </button>
+          {/* Bộ sưu tập */}
+          <button
+            className="flex items-center gap-3 w-full text-left px-5 py-3 text-base text-[#FDDAA7] hover:bg-[#7c5a3a] transition items-center whitespace-nowrap"
+            onClick={() => {
+              setOpenMenu(false);
+              navigate(ROUTERS.IMAGES_STORE);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+              style={{ minWidth: 20 }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 7.5V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-1.5m0-9L12 15l9-7.5"
+              />
+            </svg>
+            <span className="whitespace-nowrap">Bộ sưu tập</span>
+          </button>
           <button
             className="flex items-center gap-3 w-full text-left px-5 py-3 text-base text-[#FDDAA7] hover:bg-[#7c5a3a] transition items-center whitespace-nowrap"
             onClick={() => {
