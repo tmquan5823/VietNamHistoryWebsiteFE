@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { imageRestoreApi } from "@/api/imageRestore";
+import { toast } from "sonner";
+import { useImagesHook } from "@/hooks/imagesHook";
 
 const ImageRestorationForm: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -10,6 +12,7 @@ const ImageRestorationForm: React.FC = () => {
     colorize: boolean;
     enhance: boolean;
   }>({ colorize: true, enhance: true });
+  const [isSaved, setIsSaved] = useState(false);
 
   const { mutate: restoreImage, isPending: isRestoring } = useMutation({
     mutationFn: (params: { image: File; mode: string }) =>
@@ -19,9 +22,42 @@ const ImageRestorationForm: React.FC = () => {
       setRestoredImage(url);
     },
     onError: (error) => {
-      console.error("Lỗi khi phục chế ảnh:", error);
+      toast.error(
+        "Lỗi khi phục chế ảnh: " +
+          (error instanceof Error ? error.message : String(error))
+      );
     },
   });
+
+  const { mutate: saveImage, isPending: isSaving } = useImagesHook.saveImage();
+  const handleSaveImage = async () => {
+    if (!selectedImage || !restoredImage) {
+      toast.error("Chưa có ảnh để lưu!");
+      return;
+    }
+    try {
+      const restoredBlob = await fetch(restoredImage).then((res) => res.blob());
+      const formData = new FormData();
+      formData.append("original", selectedImage);
+      formData.append("restored", restoredBlob, "restored-image.jpg");
+      saveImage(formData, {
+        onSuccess: () => {
+          toast.success("Đã lưu vào bộ sưu tập!");
+          setIsSaved(true);
+        },
+        onError: (error) =>
+          toast.error(
+            "Lỗi khi lưu ảnh: " +
+              (error instanceof Error ? error.message : String(error))
+          ),
+      });
+    } catch (error) {
+      toast.error(
+        "Lỗi khi chuẩn bị lưu ảnh: " +
+          (error instanceof Error ? error.message : String(error))
+      );
+    }
+  };
 
   const getModeString = () => {
     const modes = [];
@@ -81,7 +117,7 @@ const ImageRestorationForm: React.FC = () => {
             Chọn chế độ phục chế:
           </label>
           <div className="flex gap-4">
-            <label style={{ display: "none" }}>
+            <label>
               <input
                 type="checkbox"
                 name="colorize"
@@ -90,7 +126,7 @@ const ImageRestorationForm: React.FC = () => {
               />
               <span className="ml-1">Phục chế màu</span>
             </label>
-            <label style={{ display: "none" }}>
+            <label>
               <input
                 type="checkbox"
                 name="enhance"
@@ -205,6 +241,28 @@ const ImageRestorationForm: React.FC = () => {
                   </svg>
                   Tải ảnh về máy
                 </button>
+                {!isSaved && (
+                  <button
+                    className="flex items-center text-green-600 hover:text-green-700 font-medium"
+                    onClick={handleSaveImage}
+                    disabled={isSaving}
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    {isSaving ? "Đang lưu..." : "Lưu vào bộ sưu tập"}
+                  </button>
+                )}
               </div>
             </div>
           </div>

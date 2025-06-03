@@ -103,7 +103,7 @@ const MyPostDetail: React.FC = () => {
                 </button>
               )}
               <button
-                className={`px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition z-10 ${
+                className={`px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition  ${
                   post.is_saved
                     ? "bg-[#D12827] text-white hover:bg-[#b71c1c]"
                     : "bg-neutral-200 text-[#5D4037] hover:bg-neutral-300"

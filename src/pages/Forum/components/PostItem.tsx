@@ -41,7 +41,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, currentUserId }) => {
     >
       {/* Nút lưu/bỏ lưu góc trên phải */}
       <button
-        className={`absolute top-3 right-3 px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition z-10 ${
+        className={`absolute top-3 right-3 px-2 py-1 rounded flex items-center gap-1 text-xs font-semibold transition ${
           post.is_saved
             ? "bg-[#D12827] text-white hover:bg-[#b71c1c]"
             : "bg-neutral-200 text-[#5D4037] hover:bg-neutral-300"
