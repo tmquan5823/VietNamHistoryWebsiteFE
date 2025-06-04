@@ -47,7 +47,7 @@ const QuizList: React.FC<QuizListProps> = ({ quizzes }) => {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-neutral-700 mb-1 line-clamp-3 break-all">
+                  <p className="text-sm text-neutral-700 mb-1 line-clamp-2 break-all">
                     {quiz.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-1">

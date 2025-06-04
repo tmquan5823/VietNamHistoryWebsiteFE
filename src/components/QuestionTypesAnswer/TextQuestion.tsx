@@ -618,13 +618,12 @@ const TextQuestion: React.FC<TextQuestionProps> = ({
           </div>
         </div>
       )}
-      {/* Nút đóng xem trước ở góc dưới bên phải */}
       {onClose && (
         <button
           className="absolute right-8 bottom-8 bg-[#fdf6e3] text-black font-bold rounded-full px-6 py-3 shadow-lg text-lg hover:bg-yellow-100 transition-all z-50"
           onClick={onClose}
         >
-          Đóng xem trước
+          Đóng
         </button>
       )}
       <audio

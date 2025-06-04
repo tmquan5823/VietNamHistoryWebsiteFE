@@ -97,7 +97,8 @@ const RegisterForm = ({
                   <FormControl>
                     <select
                       className="h-12 bg-gray-50 border border-gray-300 focus:border-[#5D4037] focus:ring-1 focus:ring-[#5D4037] w-full rounded-md px-3 appearance-none pr-8"
-                      {...field}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
                       disabled={isLoading}
                     >
                       <option value="" disabled>

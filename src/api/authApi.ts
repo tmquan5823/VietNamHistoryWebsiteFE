@@ -11,5 +11,9 @@ export const authApi = {
       axiosClient.post("/auth/verify", data),
     resendOtp: (email: string): Promise<ResponseData<null>> =>
       axiosClient.post("/auth/resend-otp", { email }),
+    forgotPassword: (email: string): Promise<ResponseData<null>> =>
+      axiosClient.post("/auth/forgot-password", { email }),
+    resetPassword: (data: { email: string; otp: string; newPassword: string }): Promise<ResponseData<null>> =>
+      axiosClient.post("/auth/reset-password", data),
   };
   

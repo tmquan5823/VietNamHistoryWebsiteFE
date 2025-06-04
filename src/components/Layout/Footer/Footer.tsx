@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaFacebook, FaGithubAlt, FaInstagram } from "react-icons/fa";
+import { ROUTERS } from "@/constant";
 
 const Footer = () => {
   return (
@@ -48,34 +49,34 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/thoi-ki-dung-nuoc"
+                  to={ROUTERS.HISTORY_DOCUMENT_DETAIL.replace(":id", "9")}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
-                  Thời kì dựng nước
+                  Bắc thuộc lần thứ nhất
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/doc-lap-tu-chu"
+                  to={ROUTERS.HISTORY_DOCUMENT_DETAIL.replace(":id", "10")}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
-                  Độc lập tự chủ
+                  Hai Bà Trưng
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/chong-ngoai-xam"
+                  to={ROUTERS.HISTORY_DOCUMENT_DETAIL.replace(":id", "11")}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
-                  Chống ngoại xâm
+                  Thời kì Bắc thuộc lần thứ hai
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/thoi-ki-hien-dai"
+                  to={ROUTERS.HISTORY_DOCUMENT_DETAIL.replace(":id", "12")}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
-                  Thời kì hiện đại
+                  Nhà Tiền Lý
                 </Link>
               </li>
             </ul>
@@ -87,7 +88,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/tai-lieu"
+                  to={ROUTERS.HISTORY_DOCUMENT}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
                   Tài liệu lịch sử
@@ -95,7 +96,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/phuc-che"
+                  to={ROUTERS.IMAGE_RESTORATION}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
                   Phục chế ảnh bằng AI
@@ -103,7 +104,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/dien-dan"
+                  to={ROUTERS.FORUM}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
                   Diễn đàn lịch sử
@@ -111,10 +112,10 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/quiz"
+                  to={ROUTERS.QUIZ}
                   className="hover:text-gray-300 text-white opacity-70"
                 >
-                  Bộ Quiz câu hỏi lịch sử
+                  Bộ câu hỏi lịch sử
                 </Link>
               </li>
             </ul>

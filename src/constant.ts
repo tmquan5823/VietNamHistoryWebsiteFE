@@ -5,6 +5,8 @@ export const enum ROUTERS {
 
   DEFAULT = "/",
   LOGIN = "/login",
+  FORGOT_PASSWORD = "/forgot-password",
+  RESET_PASSWORD = "/reset-password/:email",
   HOME = "/home",
   IMAGE_RESTORATION = "/image-restoration",
   HISTORY_DOCUMENT = "/history-document",
