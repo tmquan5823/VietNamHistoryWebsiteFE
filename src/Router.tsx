@@ -25,6 +25,8 @@ import ForumDetail from "./pages/ForumPostDetail";
 import Profile from "./pages/Profile";
 import SavedPosts from "./pages/SavedPosts";
 import ImagesStore from "./pages/ImagesStore";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 const LoadingFallback = () => (
   <div className="flex h-screen w-full items-center justify-center">
     <div className="size-12 animate-spin rounded-full border-y-2 border-blue-500"></div>
@@ -89,6 +91,8 @@ export default function Router() {
               </AuthRoute>
             }
           />
+          <Route path={ROUTERS.FORGOT_PASSWORD} element={<ForgotPassword />} />
+          <Route path={ROUTERS.RESET_PASSWORD} element={<ResetPassword />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

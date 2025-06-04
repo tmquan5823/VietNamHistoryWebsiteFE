@@ -11,11 +11,14 @@ import { LoginResponse, RegisterData } from "@/dataHelper/auth.dataHelper";
 import { ResponseData } from "@/utils/type";
 import { useUserStore } from "@/store/useUserStore";
 import OTPVerificationModal from "./login-components/OTPVerificationModal";
+import { ROUTERS } from "@/constant";
+import { useNavigate } from "react-router-dom";
 
 type LoginFormData = z.infer<ReturnType<typeof loginSchema>>;
 type RegisterFormData = z.infer<ReturnType<typeof registerSchema>>;
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState("");
@@ -27,7 +30,12 @@ const Login: React.FC = () => {
       useUserStore.getState().login(accessToken, user, refreshToken);
       toast.success("Đăng nhập thành công");
     },
-    onError: (error: any) => {
+    onError: (error: any, variables) => {
+      if (error.response.data.statusCode === 403) {
+        setRegisteredEmail(variables.email);
+        setShowOtpModal(true);
+        return;
+      }
       toast.error(error.response.data.message);
     },
   });
@@ -62,7 +70,7 @@ const Login: React.FC = () => {
   };
 
   const handleForgotPassword = () => {
-    toast.info("Chức năng quên mật khẩu đang được phát triển");
+    navigate(ROUTERS.FORGOT_PASSWORD);
   };
 
   return (
